@@ -25,7 +25,7 @@ DEC FROM HEX: 15
 
 ### Usage as Library
 
-<div>
+</div>
 
 Include to your project `converter.h`.
 
