@@ -8,8 +8,8 @@
 
 Run the compiled program via the console and don't forget to include a decimal number in the arguments.
 
-```C++
-$ Converter.exe 15
+```C
+$ Converter 15
 BIN: 1111
 OCT: 17
 DEC: 15
@@ -33,14 +33,22 @@ Include to your project `converter.h`.
 #include "converter.h"
 ```
 
-Available functions:
-- `char* convertToBinary(unsigned long long decimal);` - converts decimal to binary.
-- `char* convertToOctal(unsigned long long decimal);`  - converts octal to binary.
-- `char* convertToHexadecimal(unsigned long long decimal);` - converts hexadecimal to binary.
+Default Data Type (DDT):
 
-- `unsigned long long convertToDecimalFromBinary(const char *binary);` - converts binary to decimal.
-- `unsigned long long convertToDecimalFromOctal(const char *octal);` - converts octal to decimal.
-- `unsigned long long convertToDecimalFromHexadecimal(const char *hexadecimal);` - converts hexadecimal to decimal.
+It is used in functions. You can configure it in the `converter.h` file.
+
+```C
+#define DDT unsigned long long // Default Data Type
+```
+
+Available functions:
+- `char* convert_to_binary(DDT decimal);` - converts decimal to binary.
+- `char* convert_to_octal(DDT decimal);`  - converts octal to binary.
+- `char* convert_to_hexadecimal(DDT decimal);` - converts hexadecimal to binary.
+
+- `DDT convert_to_decimal_from_binary(const char *binary);` - converts binary to decimal.
+- `DDT convert_to_decimal_from_octal(const char *octal);` - converts octal to decimal.
+- `DDT convert_to_decimal_from_hexadecimal(const char *hexadecimal);` - converts hexadecimal to decimal.
 
 **WARNING!** Don't forget to free dynamic arrays!
 

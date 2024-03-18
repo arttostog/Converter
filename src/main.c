@@ -1,33 +1,56 @@
 #include <stdio.h>
 #include "converter.h"
 
-unsigned long long getNumberByStr(char* str) {
-    unsigned long long output = 0;
-    for (unsigned char pointer = 0; str[pointer] != '\0'; ++pointer) {
-        if (pointer > 0) output *= 10;
-        output += (unsigned long long) (str[pointer] - '0');
+char check_input(char* string) {
+    char input_whitelist[] = { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '\0'};
+
+    for (char i = 0, status = 0; string[i] != '\0'; status = 0, ++i) {
+        for (char j = 0; input_whitelist[j] != '\0'; ++j)
+            if (string[i] == input_whitelist[j])  {
+                status = 1;
+                break;
+            }
+        if (status) continue;
+        return 1;
     }
+    return 0;
+}
+
+DDT get_number_by_string(char* string) {
+    DDT output = 0;
+    for (char pointer = 0; string[pointer] != '\0'; output = output * 10 + (DDT) (string[pointer] - '0'), ++pointer);
     return output;
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
-        printf("To few arguments!");
+    if (argc != 2) {
+        printf("Too few or too many arguments!");
         return 1;
     }
 
-    unsigned long long number = getNumberByStr(argv[1]);
-    char* binary = convertToBinary(number);
-    char* octal = convertToOctal(number);
-    char* hexadecimal = convertToHexadecimal(number);
+    char* input_number = argv[1];
+    if (check_input(input_number)) {
+        printf("Unsupported characters!");
+        return 2;
+    }
+
+    DDT number = get_number_by_string(input_number);
+    char* binary = convert_to_binary(number);
+    char* octal = convert_to_octal(number);
+    char* hexadecimal = convert_to_hexadecimal(number);
 
     printf("BIN: %s\n", binary);
     printf("OCT: %s\n", octal);
     printf("DEC: %llu\n", number);
     printf("HEX: %s\n\n", hexadecimal);
     
-    printf("DEC FROM BIN: %llu\n", convertToDecimalFromBinary(binary));
-    printf("DEC FROM OCT: %llu\n", convertToDecimalFromOctal(octal));
-    printf("DEC FROM HEX: %llu\n", convertToDecimalFromHexadecimal(hexadecimal));
+    printf("DEC FROM BIN: %llu\n", convert_to_decimal_from_binary(binary));
+    printf("DEC FROM OCT: %llu\n", convert_to_decimal_from_octal(octal));
+    printf("DEC FROM HEX: %llu", convert_to_decimal_from_hexadecimal(hexadecimal));
+
+    free(binary);
+    free(octal);
+    free(hexadecimal);
+
     return 0;
 }

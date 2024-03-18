@@ -17,4 +17,4 @@ $(BUILD_FOLDER)converter.o: $(SRC_FOLDER)converter.c
 	gcc -c $(SRC_FOLDER)converter.c -o $(BUILD_FOLDER)converter.o
 
 clean:
-	rmdir /s /q "$(BUILD_FOLDER)"
+	if exist "$(BIN_FOLDER)" (rmdir /s /q "$(BUILD_FOLDER)")

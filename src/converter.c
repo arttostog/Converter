@@ -1,58 +1,71 @@
 #include "converter.h"
-#include <malloc.h>
 
-char *convertToBit(unsigned long long decimal, unsigned char bit) {
-    unsigned char length = 0;
-    for (unsigned long long i = decimal; i; i /= bit, ++length);
+char _get_length_by_bits(DDT number, const char bits) {
+    char length = 0;
+    for (; number; number /= bits, ++length);
+    return length;
+}
+
+char _get_symbol_by_remainder(char remainder) {
+    if (remainder > 9)
+        remainder += 7;
+    return remainder + '0';
+}
+
+char* _convert_to_bit(DDT decimal, const char bits) {
+    char length = _get_length_by_bits(decimal, bits);
 
     char* output = malloc(length * sizeof(char));
     output[length] = '\0';
-    for (; decimal; decimal /= bit, --length) {
-        char remainder = (char) (decimal % bit);
-        if (remainder < 10) {
-            output[length - 1] = remainder + '0';
-            continue;
-        }
-        output[length - 1] = remainder + '7';
-    }
-    
-    return output;
-}
-
-char *convertToBinary(unsigned long long decimal) {
-    return convertToBit(decimal, 2);
-}
-
-char *convertToOctal(unsigned long long decimal) {
-    return convertToBit(decimal, 8);
-}
-
-char *convertToHexadecimal(unsigned long long decimal) {
-    return convertToBit(decimal, 16);
-}
-
-unsigned long long convertToDecimal(const char *number, unsigned char bit) {
-    unsigned char length = 0;
-    for (; number[length] != '\0'; length++);
-
-    unsigned long long output = 0;
-    for (unsigned long long multiplier = 1; length; --length, multiplier *= bit) {
-        char remainder = number[length - 1] - '0';
-        if (remainder >= 17) remainder -= 7;
-        output += (unsigned long long) (remainder) * multiplier;
+    for (; decimal; decimal /= bits, --length) {
+        output[length - 1] = _get_symbol_by_remainder((char) (decimal % bits));
     }
 
     return output;
 }
 
-unsigned long long convertToDecimalFromBinary(const char *binary) {
-    return convertToDecimal(binary, 2);
+char* convert_to_binary(DDT decimal) {
+    return _convert_to_bit(decimal, BINARY);
 }
 
-unsigned long long convertToDecimalFromOctal(const char *octal) {
-    return convertToDecimal(octal, 8);
+char* convert_to_octal(DDT decimal) {
+    return _convert_to_bit(decimal, OCTAL);
 }
 
-unsigned long long convertToDecimalFromHexadecimal(const char *hexadecimal) {
-    return convertToDecimal(hexadecimal, 16);
+char* convert_to_hexadecimal(DDT decimal) {
+    return _convert_to_bit(decimal, HEXADECIMAL);
+}
+
+DDT _get_string_length(const char* string) {
+    char length = -1;
+    for (; string[++length] != '\0';);
+    return length;
+}
+
+char _get_number_by_remainder(char remainder) {
+    if (remainder > 16)
+        remainder -= 7;
+    return remainder;
+}
+
+DDT _convert_to_decimal(const char* number, const char bits) {
+    char length = _get_string_length(number);
+
+    DDT output = 0;
+    for (DDT multiplier = 1; length; multiplier *= bits, --length)
+        output += (DDT) (_get_number_by_remainder(number[length - 1] - '0')) * multiplier;
+
+    return output;
+}
+
+DDT convert_to_decimal_from_binary(const char* binary) {
+    return _convert_to_decimal(binary, BINARY);
+}
+
+DDT convert_to_decimal_from_octal(const char* octal) {
+    return _convert_to_decimal(octal, OCTAL);
+}
+
+DDT convert_to_decimal_from_hexadecimal(const char* hexadecimal) {
+    return _convert_to_decimal(hexadecimal, HEXADECIMAL);
 }
