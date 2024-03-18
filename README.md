@@ -8,7 +8,7 @@
 
 Run the compiled program via the console and don't forget to include a decimal number in the arguments.
 
-```C
+```C++
 $ Converter 15
 BIN: 1111
 OCT: 17
@@ -37,8 +37,8 @@ Default Data Type (DDT):
 
 It is used in functions. You can configure it in the `converter.h` file.
 
-```C
-#define DDT unsigned long long // Default Data Type
+```C++
+#define DDT unsigned long long
 ```
 
 Available functions:
