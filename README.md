@@ -2,7 +2,7 @@
 
 # Converter from decimal to binary/octal/hexadecimal in C
 
-### Usage as Program
+## Usage as Program
 
 </div>
 
@@ -14,41 +14,21 @@ BIN: 1111
 OCT: 17
 DEC: 15
 HEX: F
-
-// This functionality has been added in case anyone uses it as a library.
-DEC FROM BIN: 15
-DEC FROM OCT: 15
-DEC FROM HEX: 15
 ```
 
 <div align="center">
 
-### Usage as Library
+## Usage as Library
 
 </div>
 
-Include to your project `converter.h`.
-
-```C
-#include "converter.h"
-```
-
-Default Data Type (DDT):
-
-It is used in functions. You can configure it in the `converter.h` file.
-
-```C++
-#define DDT unsigned long long
-```
-
 Available functions:
-- `char* convert_to_binary(DDT decimal);` - converts decimal to binary.
-- `char* convert_to_octal(DDT decimal);`  - converts octal to binary.
-- `char* convert_to_hexadecimal(DDT decimal);` - converts hexadecimal to binary.
-
-- `DDT convert_to_decimal_from_binary(const char *binary);` - converts binary to decimal.
-- `DDT convert_to_decimal_from_octal(const char *octal);` - converts octal to decimal.
-- `DDT convert_to_decimal_from_hexadecimal(const char *hexadecimal);` - converts hexadecimal to decimal.
+    - `char* convert_to_binary(uint64_t decimal);` - converts decimal to binary.
+    - `char* convert_to_octal(uint64_t decimal);`  - converts octal to binary.
+    - `char* convert_to_hexadecimal(uint64_t decimal);` - converts hexadecimal to binary.
+    - `uint64_t convert_to_decimal_from_binary(const char *binary);` - converts binary to decimal.
+    - `uint64_t convert_to_decimal_from_octal(const char *octal);` - converts octal to decimal.
+    - `uint64_t convert_to_decimal_from_hexadecimal(const char *hexadecimal);` - converts hexadecimal to decimal.
 
 **WARNING!** Don't forget to free dynamic arrays!
 
