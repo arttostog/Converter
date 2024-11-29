@@ -2,22 +2,6 @@
 
 # Converter from decimal to binary/octal/hexadecimal in C
 
-## Usage as Program
-
-</div>
-
-Run the compiled program via the console and don't forget to include a decimal number in the arguments.
-
-```C++
-$ Converter 15
-BIN: 1111
-OCT: 17
-DEC: 15
-HEX: F
-```
-
-<div align="center">
-
 ## Usage as Library
 
 </div>
@@ -35,4 +19,20 @@ Available functions:
 
 ```C
 free(array);
+```
+
+<div align="center">
+
+## Example usage
+
+</div>
+
+Run the compiled program via the console and don't forget to include a decimal number in the arguments.
+
+```C++
+$ Converter 15
+BIN: 1111
+OCT: 17
+DEC: 15
+HEX: F
 ```
